@@ -1,0 +1,153 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { siteConfig } from "@/lib/site-config";
+import { CartButton } from "@/components/cart/cart-ui";
+
+const NAV = [
+  { label: "Chandeliers", href: "/shop?category=chandeliers" },
+  { label: "Pendants", href: "/shop?category=pendants" },
+  { label: "Wall Lights", href: "/shop?category=wall-lights" },
+  { label: "Floor Lamps", href: "/shop?category=floor-lamps" },
+  { label: "Smart", href: "/shop?category=smart-lighting" },
+  { label: "Atelier", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+export function SiteHeader() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => setMenuOpen(false), [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  return (
+    <>
+      <div className="border-b border-ink-line/70 bg-ink">
+        <p className="mx-auto max-w-7xl px-6 py-2 text-center text-[0.62rem] uppercase tracking-[0.28em] text-ivory-dim">
+          Complimentary design consultation ·{" "}
+          <span className="text-gold">{siteConfig.hours}</span>
+        </p>
+      </div>
+
+      <header
+        className={cn(
+          "sticky top-0 z-50 transition-all duration-500",
+          scrolled
+            ? "border-b border-ink-line bg-ink/90 backdrop-blur-md"
+            : "border-b border-transparent bg-ink/40 backdrop-blur-sm",
+        )}
+      >
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-6">
+          <button
+            className="grid h-10 w-10 place-items-center rounded-full border border-ink-line lg:hidden"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu className="h-4 w-4" />
+          </button>
+
+          <Link href="/" className="flex flex-col leading-none">
+            <span className="font-display text-2xl tracking-[0.12em] text-ivory">
+              {siteConfig.name}
+            </span>
+            <span className="mt-0.5 text-[0.55rem] uppercase tracking-[0.4em] text-gold">
+              {siteConfig.tagline}
+            </span>
+          </Link>
+
+          <nav className="hidden items-center gap-7 lg:flex">
+            {NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="gold-underline pb-1 text-[0.72rem] uppercase tracking-[0.2em] text-ivory/80 transition-colors hover:text-gold"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <Link
+              href="/shop"
+              className="hidden text-[0.72rem] uppercase tracking-[0.2em] text-ivory/70 transition-colors hover:text-gold sm:inline"
+            >
+              Shop all
+            </Link>
+            <CartButton />
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile navigation */}
+      <div
+        className={cn(
+          "fixed inset-0 z-[90] lg:hidden",
+          menuOpen ? "pointer-events-auto" : "pointer-events-none",
+        )}
+        aria-hidden={!menuOpen}
+      >
+        <div
+          className={cn(
+            "absolute inset-0 bg-black/70 transition-opacity duration-300",
+            menuOpen ? "opacity-100" : "opacity-0",
+          )}
+          onClick={() => setMenuOpen(false)}
+        />
+        <nav
+          className={cn(
+            "absolute left-0 top-0 flex h-full w-[82%] max-w-sm flex-col border-r border-ink-line bg-ink px-7 py-6 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            menuOpen ? "translate-x-0" : "-translate-x-full",
+          )}
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-display text-xl">{siteConfig.name}</span>
+            <button
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+              className="grid h-9 w-9 place-items-center rounded-full border border-ink-line"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="mt-10 flex flex-col gap-1">
+            {NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="border-b border-ink-line/60 py-4 font-display text-2xl text-ivory transition-colors hover:text-gold"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <Link
+            href="/contact"
+            className="mt-auto grid h-12 place-items-center rounded-full bg-gold text-[0.75rem] uppercase tracking-[0.2em] text-ink"
+          >
+            Enquire on WhatsApp
+          </Link>
+        </nav>
+      </div>
+    </>
+  );
+}

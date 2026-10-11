@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Éclat Maison — luxury chandelier & smart-lighting storefront
 
-## Getting Started
+A full B2C e-commerce storefront with a luxury dark/gold design system, built on
+**Next.js 16 (App Router) + TypeScript + Tailwind CSS v4**.
 
-First, run the development server:
+- Full shopping flow: browse → cart drawer → checkout → confirmation
+- Inquiry is **WhatsApp + email only** (floating button, product "Enquire" links, contact page)
+- **Admin panel** (`/admin`) to list, add, edit and remove products, plus view orders
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Admin: http://localhost:3000/admin — default password `chandelier-admin`
+(override with the `ADMIN_PASSWORD` environment variable).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configure your store
 
-## Learn More
+Everything store-facing lives in `src/lib/site-config.ts`:
 
-To learn more about Next.js, take a look at the following resources:
+| Setting | Where |
+| --- | --- |
+| Store name, tagline, description | `site-config.ts` |
+| WhatsApp number (inquiry links) | `site-config.ts` → `whatsapp.number` |
+| Contact email (inquiry links) | `site-config.ts` → `email` |
+| Free-shipping threshold / flat rate | `site-config.ts` |
+| Admin password | env var `ADMIN_PASSWORD` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The catalog is a plain JSON file (`data/products.json`) that the admin panel
+reads and writes. It ships with a seed catalogue; add your own pieces from
+`/admin`. Customer orders are written to `data/orders.json` (git-ignored).
 
-## Deploy on Vercel
+Swap this for PostgreSQL/Prisma later by replacing the functions in
+`src/lib/products.ts` and `src/lib/orders.ts` — the rest of the app doesn't
+care how data is stored.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Product images: leave the image URL empty and the storefront renders generated
+brass line-art for the piece; paste an external URL in the admin form to use
+real photography (`next/image` remote patterns are already allowed).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Payments
+
+Checkout validates and computes totals server-side (`src/lib/actions.ts`). Card
+payments are simulated in test mode; plug in Stripe by replacing the
+`paymentMethod === "card"` branch with a Stripe Checkout/PaymentIntent call.
+
+## Notes for Next.js 16
+
+This template pins to Next 16 (Turbopack, async `params`/`searchParams`, `proxy`
+instead of `middleware`). Run `next typegen` after adding routes if you want the
+generated `RouteContext`/`PageProps` helpers.

@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------ *
+ * Éclat Maison — luxury design tokens
+ * Palette: near-black "ink", warm "gold" brass, "ivory" paper.
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #0b0b0c;
+  --color-ink-soft: #131315;
+  --color-ink-line: #26262a;
+  --color-ivory: #f6f3ee;
+  --color-ivory-dim: #cfc9bf;
+  --color-gold: #c6a15b;
+  --color-gold-soft: #e2c88f;
+  --color-gold-deep: #8f7233;
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --tracking-luxe: 0.32em;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gold-deep) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--color-ink-line);
+    border-radius: 9999px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Small uppercase label used across the storefront. */
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: var(--tracking-luxe);
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .hairline {
+    border-color: var(--color-ink-line);
+  }
+
+  /* Subtle grain + vignette laid over hero sections. */
+  .luxe-vignette {
+    background:
+      radial-gradient(
+        120% 90% at 50% 0%,
+        rgba(198, 161, 91, 0.16) 0%,
+        rgba(11, 11, 12, 0) 55%
+      ),
+      radial-gradient(100% 70% at 50% 110%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 60%);
+  }
+
+  .gold-underline {
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 0.4s ease;
+  }
+  .gold-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+
+@keyframes ch-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ch-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ch-glow {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-up {
+  animation: ch-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade {
+  animation: ch-fade 0.9s ease both;
+}
+
+.animate-glow {
+  animation: ch-glow 4.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade,
+  .animate-glow {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
