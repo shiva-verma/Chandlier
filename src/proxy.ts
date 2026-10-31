@@ -12,7 +12,7 @@ export const proxy = auth((request) => {
 
   if (pathname.startsWith("/admin/login")) return NextResponse.next();
 
-  if (pathname.startsWith("/admin") && user?.role !== "admin") {
+  if (pathname.startsWith("/admin") && user?.role !== "admin" && user?.role !== "super_admin") {
     const url = new URL("/login", request.nextUrl.origin);
     url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
@@ -28,5 +28,5 @@ export const proxy = auth((request) => {
 });
 
 export const config = {
-  matcher: ["/admin/:path*", "/account/:path*"],
+  matcher: ["/admin/:path*", "/account/:path*", "/trade/dashboard/:path*", "/trade/catalogue/:path*", "/trade/quotations/:path*"],
 };

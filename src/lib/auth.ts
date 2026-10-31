@@ -19,7 +19,19 @@ export async function isAdmin() {
 /** Guards admin pages and Server Actions. */
 export async function requireAdmin() {
   const session = await auth();
-  if (session?.user?.role !== "admin") redirect("/login?next=/admin");
+  if (session?.user?.role !== "admin" && session?.user?.role !== "super_admin") redirect("/login?next=/admin");
+  return session.user;
+}
+
+export async function requireSuperAdmin() {
+  const session = await auth();
+  if (session?.user?.role !== "super_admin") redirect("/login?next=/admin");
+  return session.user;
+}
+
+export async function requireTradeCustomer() {
+  const session = await auth();
+  if (session?.user?.role !== "trade_customer") redirect("/login?next=/trade");
   return session.user;
 }
 

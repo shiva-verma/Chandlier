@@ -9,11 +9,11 @@ import { siteConfig } from "@/lib/site-config";
 import { CartButton } from "@/components/cart/cart-ui";
 
 const NAV = [
-  { label: "Chandeliers", href: "/shop?category=chandeliers" },
-  { label: "Pendants", href: "/shop?category=pendants" },
-  { label: "Wall Lights", href: "/shop?category=wall-lights" },
-  { label: "Floor Lamps", href: "/shop?category=floor-lamps" },
-  { label: "Smart", href: "/shop?category=smart-lighting" },
+  { label: "Shop", href: "/shop" },
+  { label: "Room", href: "/shop-by-room" },
+  { label: "Style", href: "/shop-by-style" },
+  { label: "Lighting Studio", href: "/lighting-studio" },
+  { label: "Trade & Projects", href: "/trade" },
   { label: "Studio", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

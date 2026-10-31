@@ -12,7 +12,7 @@ import {
   type SafeUser,
 } from "@/lib/users";
 
-export type AppRole = "admin" | "customer";
+export type AppRole = "admin" | "super_admin" | "customer" | "trade_customer";
 
 declare module "next-auth" {
   interface Session {
