@@ -34,10 +34,10 @@ export default function CheckoutPage() {
   if (hydrated && lines.length === 0 && !state?.ok) {
     return (
       <div className="mx-auto max-w-xl px-6 py-24 text-center">
-        <h1 className="font-display text-4xl">Nothing to check out yet</h1>
+        <h1 className="font-display text-4xl text-ink">Nothing to check out yet</h1>
         <Link
           href="/shop"
-          className="mt-6 inline-flex h-12 items-center rounded-full bg-gold px-8 text-[0.76rem] uppercase tracking-[0.2em] text-ink"
+          className="mt-6 inline-flex h-12 items-center rounded-full bg-ink px-8 text-[0.76rem] uppercase tracking-[0.2em] text-ivory hover:bg-mocha-soft"
         >
           Browse the collection
         </Link>
@@ -48,15 +48,15 @@ export default function CheckoutPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-14">
       <p className="eyebrow">Secure checkout</p>
-      <h1 className="mt-3 font-display text-5xl">Almost yours</h1>
+      <h1 className="mt-3 font-display text-5xl text-ink">Almost yours</h1>
 
       <form action={formAction} className="mt-10 grid gap-12 lg:grid-cols-[1.5fr_1fr]">
         <input type="hidden" name="items" value={items} />
 
         <div className="space-y-10">
           <section>
-            <h2 className="flex items-center gap-3 font-display text-2xl">
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-gold/50 text-xs text-gold">
+            <h2 className="flex items-center gap-3 font-display text-2xl text-ink">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-brass/50 text-xs text-ink">
                 1
               </span>
               Contact
@@ -78,8 +78,8 @@ export default function CheckoutPage() {
           </section>
 
           <section>
-            <h2 className="flex items-center gap-3 font-display text-2xl">
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-gold/50 text-xs text-gold">
+            <h2 className="flex items-center gap-3 font-display text-2xl text-ink">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-brass/50 text-xs text-ink">
                 2
               </span>
               Delivery
@@ -109,47 +109,47 @@ export default function CheckoutPage() {
           </section>
 
           <section>
-            <h2 className="flex items-center gap-3 font-display text-2xl">
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-gold/50 text-xs text-gold">
+            <h2 className="flex items-center gap-3 font-display text-2xl text-ink">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-brass/50 text-xs text-ink">
                 3
               </span>
               Payment
             </h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <label className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-ink-line p-5 transition-colors has-[:checked]:border-gold has-[:checked]:bg-gold/10">
+              <label className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-ink-line p-5 transition-colors has-[:checked]:border-brass has-[:checked]:bg-brass/10">
                 <input type="radio" name="payment" value="cod" defaultChecked className="sr-only" />
-                <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-ivory-dim transition-colors group-has-[:checked]:border-gold">
-                  <span className="h-2.5 w-2.5 rounded-full bg-transparent transition-colors group-has-[:checked]:bg-gold"></span>
+                <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-taupe transition-colors group-has-[:checked]:border-brass">
+                  <span className="h-2.5 w-2.5 rounded-full bg-transparent transition-colors group-has-[:checked]:bg-brass"></span>
                 </span>
                 <span>
-                  <span className="block text-sm font-medium">Cash on delivery</span>
-                  <span className="text-xs text-ivory-dim">Pay when the piece arrives</span>
+                  <span className="block text-sm font-medium text-ink">Cash on delivery</span>
+                  <span className="text-xs text-taupe">Pay when the piece arrives</span>
                 </span>
               </label>
-              <label className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-ink-line p-5 transition-colors has-[:checked]:border-gold has-[:checked]:bg-gold/10">
+              <label className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-ink-line p-5 transition-colors has-[:checked]:border-brass has-[:checked]:bg-brass/10">
                 <input type="radio" name="payment" value="card" className="sr-only" />
-                <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-ivory-dim transition-colors group-has-[:checked]:border-gold">
-                  <span className="h-2.5 w-2.5 rounded-full bg-transparent transition-colors group-has-[:checked]:bg-gold"></span>
+                <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-taupe transition-colors group-has-[:checked]:border-brass">
+                  <span className="h-2.5 w-2.5 rounded-full bg-transparent transition-colors group-has-[:checked]:bg-brass"></span>
                 </span>
                 <span>
-                  <span className="block text-sm font-medium">Pay by card</span>
-                  <span className="text-xs text-ivory-dim">Simulated in test mode</span>
+                  <span className="block text-sm font-medium text-ink">Pay by card</span>
+                  <span className="text-xs text-taupe">Simulated in test mode</span>
                 </span>
               </label>
             </div>
           </section>
         </div>
 
-        <aside className="h-fit rounded-2xl border border-ink-line bg-ink-soft/40 p-7 lg:sticky lg:top-28">
-          <h2 className="font-display text-2xl">Order summary</h2>
+        <aside className="h-fit rounded-2xl border border-ink-line bg-white/70 p-7 card-shadow lg:sticky lg:top-28">
+          <h2 className="font-display text-2xl text-ink">Order summary</h2>
           {!hydrated ? (
-            <p className="mt-4 text-sm text-ivory-dim">Loading cart…</p>
+            <p className="mt-4 text-sm text-taupe">Loading cart…</p>
           ) : (
             <ul className="mt-5 space-y-4">
               {lines.map((l) => (
                 <li key={l.productId} className="flex justify-between gap-3 text-sm">
-                  <span className="text-ivory-dim">
-                    {l.name} <span className="text-ivory-dim/50">× {l.quantity}</span>
+                  <span className="text-taupe">
+                    {l.name} <span className="text-taupe">× {l.quantity}</span>
                   </span>
                   <span className="shrink-0">{formatPrice(l.price * l.quantity)}</span>
                 </li>
@@ -158,28 +158,28 @@ export default function CheckoutPage() {
           )}
           <dl className="mt-6 space-y-3 border-t border-ink-line pt-5 text-sm">
             <div className="flex justify-between">
-              <dt className="text-ivory-dim">Subtotal</dt>
+              <dt className="text-taupe">Subtotal</dt>
               <dd>{formatPrice(subtotal)}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-ivory-dim">Shipping</dt>
+              <dt className="text-taupe">Shipping</dt>
               <dd>{shipping === 0 ? "Complimentary" : formatPrice(shipping)}</dd>
             </div>
             {shipping > 0 && (
-              <p className="text-xs text-ivory-dim/70">
+              <p className="text-xs text-taupe">
                 Free shipping on orders over {formatPrice(siteConfig.freeShippingThreshold)}.
               </p>
             )}
             <div className="flex items-center justify-between border-t border-ink-line pt-4">
               <dt className="text-base">Total</dt>
-              <dd className="font-display text-2xl text-gold">
+              <dd className="font-display text-2xl text-ink">
                 {formatPrice(subtotal + shipping)}
               </dd>
             </div>
           </dl>
 
           {state && !state.ok && (
-            <p className="mt-5 rounded-xl border border-red-400/40 bg-red-400/10 px-4 py-3 text-sm text-red-200">
+            <p className="mt-5 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
               {state.error}
             </p>
           )}
@@ -187,13 +187,13 @@ export default function CheckoutPage() {
           <button
             type="submit"
             disabled={pending || !hydrated || lines.length === 0}
-            className="mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-gold py-4 text-[0.78rem] uppercase tracking-[0.2em] text-ink transition-colors hover:bg-gold-soft disabled:opacity-50"
+            className="mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-[0.78rem] uppercase tracking-[0.2em] text-ivory transition-colors hover:bg-mocha-soft disabled:opacity-50"
           >
             {pending ? "Placing order…" : "Place order"}
             {!pending && <Lock className="h-4 w-4" />}
           </button>
-          <p className="mt-4 flex items-center justify-center gap-2 text-xs text-ivory-dim">
-            <ShieldCheck className="h-3.5 w-3.5 text-gold" />
+          <p className="mt-4 flex items-center justify-center gap-2 text-xs text-taupe">
+            <ShieldCheck className="h-3.5 w-3.5 text-gold-deep" />
             Encrypted & secure · never shared
           </p>
         </aside>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
-import { adminLogout } from "@/lib/admin-actions";
+import { logout } from "@/lib/auth-actions";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -17,24 +17,24 @@ export default async function AdminPanelLayout({
 
   return (
     <div className="min-h-screen">
-      <header className="border-b border-ink-line bg-ink-soft/60">
+      <header className="border-b border-ink-line bg-white/80">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-6">
           <div className="flex items-center gap-8">
-            <Link href="/admin" className="font-display text-xl tracking-[0.08em]">
-              Éclat
-              <span className="text-gold"> · Admin</span>
+            <Link href="/admin" className="font-display text-xl tracking-[0.08em] text-ink">
+              Tejora
+              <span className="text-taupe"> · Admin</span>
             </Link>
-            <nav className="hidden items-center gap-6 text-[0.7rem] uppercase tracking-[0.2em] text-ivory-dim sm:flex">
-              <Link href="/admin" className="transition-colors hover:text-gold">
+            <nav className="hidden items-center gap-6 text-[0.7rem] uppercase tracking-[0.2em] text-taupe sm:flex">
+              <Link href="/admin" className="transition-colors hover:text-gold-deep">
                 Products
               </Link>
               <Link
                 href="/admin/products/new"
-                className="transition-colors hover:text-gold"
+                className="transition-colors hover:text-gold-deep"
               >
                 Add product
               </Link>
-              <Link href="/admin/orders" className="transition-colors hover:text-gold">
+              <Link href="/admin/orders" className="transition-colors hover:text-gold-deep">
                 Orders
               </Link>
             </nav>
@@ -43,14 +43,14 @@ export default async function AdminPanelLayout({
             <a
               href="/"
               target="_blank"
-              className="hidden text-[0.68rem] uppercase tracking-[0.2em] text-ivory-dim transition-colors hover:text-gold sm:inline"
+              className="hidden text-[0.68rem] uppercase tracking-[0.2em] text-taupe transition-colors hover:text-gold-deep sm:inline"
             >
               View store ↗
             </a>
-            <form action={adminLogout}>
+            <form action={logout}>
               <button
                 type="submit"
-                className="text-[0.68rem] uppercase tracking-[0.2em] text-ivory-dim transition-colors hover:text-gold"
+                className="text-[0.68rem] uppercase tracking-[0.2em] text-taupe transition-colors hover:text-gold-deep"
               >
                 Sign out
               </button>

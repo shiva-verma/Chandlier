@@ -1,18 +1,38 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Éclat Maison — luxury design tokens
- * Palette: near-black "ink", warm "gold" brass, "ivory" paper.
+ * Tejora — Warm Ivory / Deep Mocha / Antique Brass design tokens
+ * Warm Ivory   #F4EFE6
+ * Deep Mocha   #302820
+ * Antique Brass#B29463
+ * Pure White   #FFFFFF
+ * Natural Sand #D9CDBD
+ * Muted Taupe  #68594A
+ * Single source of truth — never hardcode shades in components.
  * ------------------------------------------------------------------ */
 @theme {
-  --color-ink: #0b0b0c;
-  --color-ink-soft: #131315;
-  --color-ink-line: #26262a;
-  --color-ivory: #f6f3ee;
-  --color-ivory-dim: #cfc9bf;
-  --color-gold: #c6a15b;
-  --color-gold-soft: #e2c88f;
-  --color-gold-deep: #8f7233;
+  /* Core brand palette */
+  --color-ivory: #f4efe6;
+  --color-mocha: #302820;
+  --color-brass: #b29463;
+  --color-white: #ffffff;
+  --color-sand: #d9cdbd;
+  --color-taupe: #68594a;
+
+  /* Supporting shades derived only from the palette */
+  --color-mocha-soft: #3d342a; /* mocha, lifted for hovers on dark surfaces */
+  --color-mocha-deep: #241d17; /* mocha, deepened for the footer base */
+  --color-brass-soft: #c9ad80; /* brass, lightened for hovers */
+  --color-brass-deep: #8a7142; /* brass, deepened for dividers & large accents */
+
+  /* Backwards-compatible aliases so existing utility names map to brand */
+  --color-ink: var(--color-mocha);
+  --color-ink-soft: var(--color-white);
+  --color-ink-line: var(--color-sand);
+  --color-ivory-dim: var(--color-taupe);
+  --color-gold: var(--color-brass);
+  --color-gold-soft: var(--color-brass-soft);
+  --color-gold-deep: var(--color-brass-deep);
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
@@ -27,19 +47,19 @@
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-ivory);
+    background-color: var(--color-ivory);
+    color: var(--color-mocha);
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   }
 
   ::selection {
-    background: var(--color-gold);
-    color: var(--color-ink);
+    background: var(--color-brass);
+    color: var(--color-mocha);
   }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-gold-deep) transparent;
+    scrollbar-color: var(--color-sand) transparent;
   }
 
   *::-webkit-scrollbar {
@@ -47,7 +67,7 @@
     height: 8px;
   }
   *::-webkit-scrollbar-thumb {
-    background: var(--color-ink-line);
+    background: var(--color-sand);
     border-radius: 9999px;
   }
 }
@@ -58,26 +78,30 @@
     font-size: 0.68rem;
     letter-spacing: var(--tracking-luxe);
     text-transform: uppercase;
-    color: var(--color-gold);
+    color: var(--color-taupe);
   }
 
   .hairline {
-    border-color: var(--color-ink-line);
+    border-color: var(--color-sand);
   }
 
-  /* Subtle grain + vignette laid over hero sections. */
+  /* Soft warm wash laid over editorial hero sections on ivory. */
   .luxe-vignette {
     background:
       radial-gradient(
         120% 90% at 50% 0%,
-        rgba(198, 161, 91, 0.16) 0%,
-        rgba(11, 11, 12, 0) 55%
+        rgba(178, 148, 99, 0.16) 0%,
+        rgba(244, 239, 230, 0) 55%
       ),
-      radial-gradient(100% 70% at 50% 110%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 60%);
+      radial-gradient(
+        100% 80% at 50% 120%,
+        rgba(217, 205, 189, 0.75) 0%,
+        rgba(244, 239, 230, 0) 60%
+      );
   }
 
   .gold-underline {
-    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-image: linear-gradient(var(--color-brass), var(--color-brass));
     background-repeat: no-repeat;
     background-position: 0 100%;
     background-size: 0% 1px;
@@ -85,6 +109,18 @@
   }
   .gold-underline:hover {
     background-size: 100% 1px;
+  }
+
+  /* Restrained shadows for white product cards. */
+  .card-shadow {
+    box-shadow:
+      0 1px 2px rgba(48, 40, 32, 0.04),
+      0 14px 34px -22px rgba(48, 40, 32, 0.28);
+  }
+  .card-shadow-hover {
+    box-shadow:
+      0 2px 6px rgba(48, 40, 32, 0.06),
+      0 26px 52px -26px rgba(48, 40, 32, 0.32);
   }
 }
 
@@ -111,10 +147,10 @@
 @keyframes ch-glow {
   0%,
   100% {
-    opacity: 0.75;
+    opacity: 0.6;
   }
   50% {
-    opacity: 1;
+    opacity: 0.95;
   }
 }
 

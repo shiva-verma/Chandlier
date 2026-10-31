@@ -14,7 +14,7 @@ export function ProductBuyBox({ product }: { product: Product }) {
         <button
           onClick={() => setQty((n) => Math.max(1, n - 1))}
           aria-label="Decrease quantity"
-          className="grid h-full w-12 place-items-center hover:text-gold"
+          className="grid h-full w-12 place-items-center hover:text-gold-deep"
         >
           <Minus className="h-4 w-4" />
         </button>
@@ -24,7 +24,7 @@ export function ProductBuyBox({ product }: { product: Product }) {
         <button
           onClick={() => setQty((n) => Math.min(99, n + 1))}
           aria-label="Increase quantity"
-          className="grid h-full w-12 place-items-center hover:text-gold"
+          className="grid h-full w-12 place-items-center hover:text-gold-deep"
         >
           <Plus className="h-4 w-4" />
         </button>

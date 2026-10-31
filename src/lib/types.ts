@@ -24,6 +24,12 @@ export type Product = {
   featured: boolean;
   /** Optional external image URL. Falls back to generated artwork when empty. */
   image?: string;
+  /** Cloudinary public id, kept so an uploaded asset can be replaced/removed. */
+  imagePublicId?: string;
+  /** Additional product images (gallery). */
+  images?: string[];
+  /** Public ids for additional gallery images. */
+  imagePublicIds?: string[];
   /** Variant index (0-5) used by the generated chandelier artwork. */
   art: number;
   createdAt: string;

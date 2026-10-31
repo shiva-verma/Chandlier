@@ -3,9 +3,15 @@ import path from "node:path";
 import type { Product } from "./types";
 import { isCategory } from "./types";
 import { newId, slugify } from "./utils";
+import { connectMongo, isMongoConfigured } from "./mongoose";
+import { ProductModel, toProduct, type ProductDoc } from "./models/product";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const PRODUCTS_FILE = path.join(DATA_DIR, "products.json");
+
+/* -------------------------------------------------------------------------- */
+/* JSON file store (fallback when MONGODB_URI is not configured)               */
+/* -------------------------------------------------------------------------- */
 
 async function ensureFile() {
   await fs.mkdir(DATA_DIR, { recursive: true });
@@ -16,7 +22,7 @@ async function ensureFile() {
   }
 }
 
-async function readAll(): Promise<Product[]> {
+async function readJson(): Promise<Product[]> {
   await ensureFile();
   try {
     const raw = await fs.readFile(PRODUCTS_FILE, "utf8");
@@ -27,9 +33,27 @@ async function readAll(): Promise<Product[]> {
   }
 }
 
-async function writeAll(products: Product[]) {
+async function writeJson(products: Product[]) {
   await ensureFile();
   await fs.writeFile(PRODUCTS_FILE, JSON.stringify(products, null, 2), "utf8");
+}
+
+/* -------------------------------------------------------------------------- */
+/* Backend-agnostic primitives                                                 */
+/* -------------------------------------------------------------------------- */
+
+async function readAll(): Promise<Product[]> {
+  if (isMongoConfigured()) {
+    await connectMongo();
+    const docs = await ProductModel.find().lean();
+    return docs.map((doc) => toProduct(doc as unknown as ProductDoc));
+  }
+  return readJson();
+}
+
+function toDoc(product: Product): ProductDoc {
+  const { id, collection, ...rest } = product;
+  return { _id: id, collectionName: collection, ...rest };
 }
 
 function sortProducts(products: Product[]) {
@@ -38,6 +62,10 @@ function sortProducts(products: Product[]) {
     return b.createdAt.localeCompare(a.createdAt);
   });
 }
+
+/* -------------------------------------------------------------------------- */
+/* Reads                                                                       */
+/* -------------------------------------------------------------------------- */
 
 export async function getProducts() {
   return sortProducts(await readAll());
@@ -70,6 +98,10 @@ export async function getRelated(product: Product, limit = 4) {
     .slice(0, limit);
 }
 
+/* -------------------------------------------------------------------------- */
+/* Writes                                                                      */
+/* -------------------------------------------------------------------------- */
+
 export type ProductInput = Omit<Product, "id" | "slug" | "createdAt"> & {
   slug?: string;
 };
@@ -87,8 +119,14 @@ export async function createProduct(input: ProductInput) {
     slug,
     createdAt: new Date().toISOString(),
   };
-  all.push(product);
-  await writeAll(all);
+
+  if (isMongoConfigured()) {
+    await connectMongo();
+    await ProductModel.create(toDoc(product));
+  } else {
+    all.push(product);
+    await writeJson(all);
+  }
   return product;
 }
 
@@ -105,18 +143,32 @@ export async function updateProduct(id: string, input: Partial<ProductInput>) {
   }
   if (input.slug) next.slug = slugify(input.slug);
 
-  all[index] = next;
-  await writeAll(all);
+  if (isMongoConfigured()) {
+    await connectMongo();
+    await ProductModel.replaceOne({ _id: id }, toDoc(next));
+  } else {
+    all[index] = next;
+    await writeJson(all);
+  }
   return next;
 }
 
 export async function deleteProduct(id: string) {
+  if (isMongoConfigured()) {
+    await connectMongo();
+    const result = await ProductModel.deleteOne({ _id: id });
+    return result.deletedCount > 0;
+  }
   const all = await readAll();
   const next = all.filter((p) => p.id !== id);
   if (next.length === all.length) return false;
-  await writeAll(next);
+  await writeJson(next);
   return true;
 }
+
+/* -------------------------------------------------------------------------- */
+/* Filtering                                                                   */
+/* -------------------------------------------------------------------------- */
 
 export type ShopFilters = {
   category?: string;

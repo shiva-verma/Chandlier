@@ -19,7 +19,7 @@ export function DeleteProductButton({ id, name }: { id: string; name: string }) 
           startTransition(() => adminDeleteProduct(formData));
         }
       }}
-      className="rounded-full border border-red-400/40 px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.18em] text-red-300 transition-colors hover:bg-red-400/10 disabled:opacity-50"
+      className="rounded-full border border-red-300 px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.18em] text-red-700 transition-colors hover:bg-red-50 disabled:opacity-50"
     >
       {pending ? "Removing…" : "Remove"}
     </button>

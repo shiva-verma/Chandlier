@@ -1,4 +1,5 @@
 import { Input, Textarea, Select, Label } from "@/components/ui/field";
+import { ImageUpload } from "@/components/admin/image-upload";
 import {
   CATEGORY_LABELS,
   COLLECTIONS,
@@ -9,7 +10,7 @@ import {
 import { adminCreateProduct, adminUpdateProduct } from "@/lib/admin-actions";
 import { formatPrice } from "@/lib/utils";
 
-const BADGES = ["New", "Bestseller", "Atelier", "Smart", "Sale"];
+const BADGES = ["New", "Bestseller", "Signature", "Smart", "Sale"];
 
 function inr(minor: number) {
   return minor / 100;
@@ -31,7 +32,7 @@ export function ProductForm({ product }: { product?: Product }) {
 
   return (
     <form action={action} className="mt-8">
-      <div className="grid gap-5 rounded-2xl border border-ink-line bg-ink-soft/40 p-6 sm:grid-cols-2">
+      <div className="grid gap-5 rounded-2xl border border-ink-line bg-white/60 p-6 sm:grid-cols-2">
         <Row label="Name *" span>
           <Input name="name" required defaultValue={product?.name} placeholder="Aurum Halo Chandelier" />
         </Row>
@@ -129,24 +130,24 @@ export function ProductForm({ product }: { product?: Product }) {
         </Row>
 
         <Row label="Smart enabled">
-          <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm text-ivory-dim">
+          <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm text-taupe">
             <input
               type="checkbox"
               name="smart"
               defaultChecked={product?.smart}
-              className="h-4 w-4 accent-[#c6a15b]"
+              className="h-4 w-4 accent-[#b29463]"
             />
             App & voice control
           </label>
         </Row>
 
         <Row label="Featured on home">
-          <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm text-ivory-dim">
+          <label className="mt-2 flex cursor-pointer items-center gap-3 text-sm text-taupe">
             <input
               type="checkbox"
               name="featured"
               defaultChecked={product?.featured}
-              className="h-4 w-4 accent-[#c6a15b]"
+              className="h-4 w-4 accent-[#b29463]"
             />
             Show in featured rails
           </label>
@@ -184,26 +185,24 @@ export function ProductForm({ product }: { product?: Product }) {
           <Input name="reviewCount" type="number" min="0" step="1" defaultValue={product?.reviewCount ?? 0} />
         </Row>
 
-        <Row label="Product image URL (optional)">
-          <Input
-            name="image"
-            type="url"
-            defaultValue={product?.image}
-            placeholder="https://…  Leave empty to use generated artwork"
-          />
-        </Row>
+        <ImageUpload
+          initialUrl={product?.image}
+          initialPublicId={product?.imagePublicId}
+          initialImages={product?.images}
+          initialImagePublicIds={product?.imagePublicIds}
+        />
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-3">
+      <div className="mt-6 flex flex-wrap items-center gap-3">
         <button
           type="submit"
-          className="rounded-full bg-gold px-8 text-[0.76rem] uppercase tracking-[0.2em] text-ink transition-colors hover:bg-gold-soft"
+          className="inline-flex h-11 items-center justify-center rounded-full bg-ink px-8 text-[0.76rem] uppercase tracking-[0.2em] text-ivory transition-colors hover:bg-mocha-soft"
         >
           {product ? "Save changes" : "Create product"}
         </button>
         <a
           href="/admin"
-          className="rounded-full border border-ink-line px-8 text-[0.76rem] uppercase tracking-[0.2em] text-ivory-dim transition-colors hover:border-gold hover:text-gold"
+          className="inline-flex h-11 items-center justify-center rounded-full border border-ink-line px-8 text-[0.76rem] uppercase tracking-[0.2em] text-taupe transition-colors hover:border-brass hover:text-gold-deep"
         >
           Cancel
         </a>

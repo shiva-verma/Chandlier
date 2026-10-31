@@ -23,30 +23,30 @@ export default async function AdminEditProductPage({
 
   return (
     <>
-      <nav className="text-[0.66rem] uppercase tracking-[0.22em] text-ivory-dim">
-        <Link href="/admin" className="hover:text-gold">
+      <nav className="text-[0.66rem] uppercase tracking-[0.22em] text-taupe">
+        <Link href="/admin" className="hover:text-gold-deep">
           Products
         </Link>
-        <span className="mx-2 text-ivory-dim/40">/</span>
-        <span className="text-gold">{product.name}</span>
+        <span className="mx-2 text-taupe/40">/</span>
+        <span className="text-ink">{product.name}</span>
       </nav>
 
       <div className="mt-4 flex flex-wrap items-center gap-4">
-        <h1 className="font-display text-4xl">Edit product</h1>
+        <h1 className="font-display text-4xl text-ink">Edit product</h1>
         {saved && (
-          <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs text-gold">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brass/40 bg-brass/10 px-4 py-1.5 text-xs text-ink">
             <CheckCircle2 className="h-3.5 w-3.5" /> Saved
           </span>
         )}
         {created && (
-          <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs text-gold">
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/60 bg-emerald-50 px-4 py-1.5 text-xs font-medium text-emerald-800">
             <CheckCircle2 className="h-3.5 w-3.5" /> Created — it&apos;s live on the store
           </span>
         )}
       </div>
 
-      <p className="mt-3 text-sm text-ivory-dim">
-        <Link href={`/product/${product.slug}`} target="_blank" className="gold-underline text-gold">
+      <p className="mt-3 text-sm text-taupe">
+        <Link href={`/product/${product.slug}`} target="_blank" className="gold-underline text-ink">
           View live product page ↗
         </Link>
       </p>

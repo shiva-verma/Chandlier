@@ -4,10 +4,12 @@ import { cn } from "@/lib/utils";
 type Tone = "gold" | "muted" | "outline" | "dark";
 
 const tones: Record<Tone, string> = {
-  gold: "bg-gold/15 text-gold border border-gold/30",
-  muted: "bg-ivory/5 text-ivory-dim border border-ink-line",
-  outline: "border border-ink-line text-ivory",
-  dark: "bg-ink text-gold border border-gold/40",
+  // Brass-selected state, mocha label for accessible contrast on ivory.
+  gold: "bg-brass/15 text-mocha border border-brass/40",
+  muted: "bg-ivory text-taupe border border-ink-line",
+  outline: "border border-ink-line text-ink",
+  // Dark chip for white cards: brass text on mocha passes contrast.
+  dark: "bg-ink text-brass border border-brass/40",
 };
 
 export function Badge({

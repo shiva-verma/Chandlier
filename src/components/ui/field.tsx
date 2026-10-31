@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const field =
-  "w-full rounded-xl border border-ink-line bg-ink-soft/60 px-4 py-3 text-sm text-ivory placeholder:text-ivory-dim/50 transition-colors focus:border-gold/70 focus:outline-none focus:ring-1 focus:ring-gold/40";
+  "w-full rounded-xl border border-ink-line bg-white px-4 py-3 text-sm text-ink placeholder:text-taupe/70 transition-colors focus:border-brass focus:outline-none focus:ring-1 focus:ring-brass/40";
 
 export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input className={cn(field, className)} {...props} />;
@@ -31,7 +31,7 @@ export function Label({ className, ...props }: React.LabelHTMLAttributes<HTMLLab
   return (
     <label
       className={cn(
-        "mb-1.5 block text-[0.68rem] uppercase tracking-[0.22em] text-ivory-dim",
+        "mb-1.5 block text-[0.68rem] uppercase tracking-[0.22em] text-taupe",
         className,
       )}
       {...props}

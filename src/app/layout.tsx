@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  metadataBase: new URL("https://eclatmaison.example.com"),
+  metadataBase: new URL("https://tejora.example.com"),
   openGraph: {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <body className="min-h-screen bg-ink text-ivory antialiased">{children}</body>
+      <body className="min-h-screen bg-ivory text-mocha antialiased">{children}</body>
     </html>
   );
 }

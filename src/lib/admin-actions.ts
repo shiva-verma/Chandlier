@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { requireAdmin, signIn, signOut } from "./auth";
+import { requireAdmin } from "./auth";
 import { CATEGORY_LABELS, type CategorySlug } from "./types";
 import {
   createProduct,
@@ -9,17 +9,6 @@ import {
   deleteProduct,
   type ProductInput,
 } from "./products";
-
-export async function adminLogin(formData: FormData) {
-  const ok = await signIn(String(formData.get("password") ?? ""));
-  if (!ok) redirect("/admin/login?error=1");
-  redirect("/admin");
-}
-
-export async function adminLogout() {
-  await signOut();
-  redirect("/admin/login");
-}
 
 function str(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
@@ -60,6 +49,33 @@ function buildProductInput(formData: FormData): ProductInput {
     badge: str(formData, "badge") || undefined,
     featured: bool(formData, "featured"),
     image: str(formData, "image") || undefined,
+    imagePublicId: str(formData, "imagePublicId") || undefined,
+    images: (() => {
+      const raw = str(formData, "images");
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return parsed.filter((v): v is string => typeof v === "string" && v.trim().length > 0);
+        }
+        return [];
+      } catch {
+        return [];
+      }
+    })(),
+    imagePublicIds: (() => {
+      const raw = str(formData, "imagePublicIds");
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return parsed.filter((v): v is string => typeof v === "string" && v.trim().length > 0);
+        }
+        return [];
+      } catch {
+        return [];
+      }
+    })(),
     art: Math.min(5, Math.max(0, Math.round(num(formData, "art")))),
   };
 }

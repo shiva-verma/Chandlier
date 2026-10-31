@@ -1,58 +1,100 @@
-# Éclat Maison — luxury chandelier & smart-lighting storefront
+# Tejora
 
-A full B2C e-commerce storefront with a luxury dark/gold design system, built on
-**Next.js 16 (App Router) + TypeScript + Tailwind CSS v4**.
+A luxury single-brand B2C chandelier and lighting e-commerce experience built with Next.js 16, TypeScript, Tailwind CSS, and shadcn-style UI components. Tejora is an inquiry-only storefront with WhatsApp and email inquiries - no payment processing.
 
-- Full shopping flow: browse → cart drawer → checkout → confirmation
-- Inquiry is **WhatsApp + email only** (floating button, product "Enquire" links, contact page)
-- **Admin panel** (`/admin`) to list, add, edit and remove products, plus view orders
+## Features
 
-## Run it
+- **Luxury storefront** - Tejora-branded single-brand B2C experience with warm ivory/mocha/brass palette
+- **Product catalog** - Chandeliers, pendants, wall lights, floor lamps, and smart lighting with detailed specs
+- **Image gallery** - Main image with thumbnails, lightbox zoom with keyboard navigation
+- **Wishlist** - Save favorite pieces with heart icons, dedicated wishlist page
+- **Recently viewed** - Track and display browsing history across the site
+- **Share product** - Share via Web Share API or copy link with one click
+- **Advanced filters** - Filter by category, collection, finish, smart lighting, and price range slider
+- **Inquiry-only flow** - WhatsApp and email inquiries (no cart checkout payments)
+- **Real authentication** - Auth.js v5 with credentials login/signup, customer accounts
+- **Order history** - Track inquiries/orders by email in customer account
+- **Admin panel** - Manage products, orders, and content with multi-image upload
+- **Cloudinary integration** - Image storage with gallery support (main + additional images)
+- **MongoDB persistence** - Mongoose models with dual-mode (MongoDB/JSON fallback)
+- **Responsive design** - Mobile-first with Tailwind CSS and shadcn-style UI
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org/) - App Router
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [Auth.js v5](https://authjs.dev/) - Authentication
+- [Mongoose](https://mongoosejs.com/) - MongoDB ODM
+- [Cloudinary](https://cloudinary.com/) - Image storage
+- [Lucide React](https://lucide.dev/) - Icons
+- [bcryptjs](https://github.com/dcodeIO/bcrypt.js) - Password hashing
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- MongoDB (optional - falls back to JSON files if not configured)
+- Cloudinary account (optional - for image uploads)
+
+### Environment Variables
+
+Copy `.env.example` to `.env.local` and configure:
+
+```env
+# MongoDB (optional - uses JSON fallback if not set)
+MONGODB_URI=mongodb+srv://...
+MONGODB_DB=Chandlier
+
+# Auth.js
+AUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+
+# Cloudinary (supports CLOUDINARY_URL or individual vars)
+CLOUDINARY_URL=cloudinary://api_key:api_secret@cloud_name
+# or
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+# Admin seeding
+ADMIN_EMAIL=admin@tejora.com
+ADMIN_PASSWORD=your-secure-password
+```
+
+### Installation
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:3000
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-Admin: http://localhost:3000/admin — default password `chandelier-admin`
-(override with the `ADMIN_PASSWORD` environment variable).
+### Seeding
 
-## Configure your store
+```bash
+npm run seed
+```
 
-Everything store-facing lives in `src/lib/site-config.ts`:
+### Build
 
-| Setting | Where |
-| --- | --- |
-| Store name, tagline, description | `site-config.ts` |
-| WhatsApp number (inquiry links) | `site-config.ts` → `whatsapp.number` |
-| Contact email (inquiry links) | `site-config.ts` → `email` |
-| Free-shipping threshold / flat rate | `site-config.ts` |
-| Admin password | env var `ADMIN_PASSWORD` |
+```bash
+npm run build
+npm start
+```
 
-## Data
+## Project Structure
 
-The catalog is a plain JSON file (`data/products.json`) that the admin panel
-reads and writes. It ships with a seed catalogue; add your own pieces from
-`/admin`. Customer orders are written to `data/orders.json` (git-ignored).
+```
+src/
+├── app/          # Next.js App Router pages and API routes
+├── components/   # React components (UI, store, admin)
+├── lib/          # Utilities, models, auth, data layer
+└── auth.ts       # Auth.js configuration
+```
 
-Swap this for PostgreSQL/Prisma later by replacing the functions in
-`src/lib/products.ts` and `src/lib/orders.ts` — the rest of the app doesn't
-care how data is stored.
+## Brand
 
-Product images: leave the image URL empty and the storefront renders generated
-brass line-art for the piece; paste an external URL in the admin form to use
-real photography (`next/image` remote patterns are already allowed).
-
-## Payments
-
-Checkout validates and computes totals server-side (`src/lib/actions.ts`). Card
-payments are simulated in test mode; plug in Stripe by replacing the
-`paymentMethod === "card"` branch with a Stripe Checkout/PaymentIntent call.
-
-## Notes for Next.js 16
-
-This template pins to Next 16 (Turbopack, async `params`/`searchParams`, `proxy`
-instead of `middleware`). Run `next typegen` after adding routes if you want the
-generated `RouteContext`/`PageProps` helpers.
+**Tejora** - Single-brand luxury lighting studio. Inquiry-only model with WhatsApp and email contact. No shopping cart payments or checkout flows.

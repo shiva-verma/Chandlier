@@ -10,7 +10,7 @@ import {
 } from "react";
 import type { CartLine } from "@/lib/types";
 
-const STORAGE_KEY = "eclat-cart-v1";
+const STORAGE_KEY = "tejora-cart-v1";
 
 type CartContextValue = {
   lines: CartLine[];

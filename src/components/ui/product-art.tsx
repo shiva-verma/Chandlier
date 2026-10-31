@@ -25,14 +25,14 @@ export function ProductArt({
     >
       <defs>
         <radialGradient id={`glow-${v}`} cx="50%" cy="42%" r="58%">
-          <stop offset="0%" stopColor="#e2c88f" stopOpacity="0.55" />
-          <stop offset="45%" stopColor="#c6a15b" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#0b0b0c" stopOpacity="0" />
+          <stop offset="0%" stopColor="#c9ad80" stopOpacity="0.5" />
+          <stop offset="45%" stopColor="#b29463" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#f4efe6" stopOpacity="0" />
         </radialGradient>
         <linearGradient id={`metal-${v}`} x1="0" y1="0" x2="0.2" y2="1">
-          <stop offset="0%" stopColor="#f0dcae" />
-          <stop offset="50%" stopColor="#c6a15b" />
-          <stop offset="100%" stopColor="#7d6229" />
+          <stop offset="0%" stopColor="#d8c096" />
+          <stop offset="50%" stopColor="#b29463" />
+          <stop offset="100%" stopColor="#6f5730" />
         </linearGradient>
       </defs>
 
@@ -45,7 +45,7 @@ export function ProductArt({
         {body(v, metal)}
       </g>
 
-      <g fill="#f0dcae">
+      <g fill="#d8c096">
         {lights(v).map((l) => (
           <circle key={`${l.cx}-${l.cy}`} cx={l.cx} cy={l.cy} r={l.r} />
         ))}

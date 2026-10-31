@@ -71,7 +71,7 @@
     "stock": 3,
     "rating": 5,
     "reviewCount": 41,
-    "badge": "Atelier",
+    "badge": "Signature",
     "featured": true,
     "art": 2,
     "createdAt": "2025-10-12T09:00:00.000Z"
@@ -345,5 +345,29 @@
     "featured": true,
     "art": 4,
     "createdAt": "2025-11-14T09:00:00.000Z"
+  },
+  {
+    "name": "rudra",
+    "tagline": "",
+    "description": "",
+    "price": 99993600,
+    "category": "chandeliers",
+    "collection": "Aurum",
+    "finish": "Antique Brass",
+    "material": "",
+    "dimensions": "",
+    "wattage": "",
+    "lumens": "",
+    "colorTemp": "",
+    "bulbType": "",
+    "smart": false,
+    "stock": 5,
+    "rating": 5,
+    "reviewCount": 0,
+    "featured": false,
+    "art": 0,
+    "id": "prod_mv41448jmlx36",
+    "slug": "rudra",
+    "createdAt": "2026-10-11T16:19:58.963Z"
   }
 ]

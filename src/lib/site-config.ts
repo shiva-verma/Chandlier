@@ -1,8 +1,8 @@
 export const siteConfig = {
-  name: "Éclat Maison",
+  name: "Tejora",
   tagline: "Light, sculpted.",
   description:
-    "Éclat Maison crafts statement chandeliers and precision smart lighting for interiors that deserve to be remembered.",
+    "Tejora crafts statement chandeliers and precision smart lighting for interiors that deserve to be remembered.",
   /**
    * Inquiry is intentionally limited to WhatsApp + email only.
    * Update these two values to point at the real store.
@@ -12,8 +12,8 @@ export const siteConfig = {
     number: "919000000000",
     display: "+91 90000 00000",
   },
-  email: "concierge@eclatmaison.com",
-  address: "12 Atelier Lane, Design District, Mumbai 400001",
+  email: "concierge@tejora.com",
+  address: "12 Studio Lane, Design District, Mumbai 400001",
   hours: "Mon–Sat · 10:00 – 20:00 IST",
   socials: {
     instagram: "https://instagram.com",

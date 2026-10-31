@@ -5,14 +5,17 @@ type Variant = "primary" | "outline" | "ghost" | "gold" | "dark";
 type Size = "sm" | "md" | "lg" | "icon";
 
 const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium tracking-wide transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-ink focus-visible:ring-gold/70 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium tracking-wide transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory focus-visible:ring-brass/60 disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-gold text-ink hover:bg-gold-soft shadow-[0_0_0_0_rgba(198,161,91,0)] hover:shadow-[0_10px_40px_-12px_rgba(198,161,91,0.8)]",
-  outline: "border border-ink-line text-ivory hover:border-gold hover:text-gold",
-  ghost: "text-ivory/75 hover:text-gold",
-  gold: "border border-gold/60 text-gold hover:bg-gold hover:text-ink",
-  dark: "bg-ink-soft text-ivory border border-ink-line hover:border-gold/50",
+  // Important actions: deep mocha with ivory text.
+  primary:
+    "bg-ink text-ivory hover:bg-mocha-soft shadow-[0_12px_30px_-16px_rgba(48,40,32,0.55)] hover:shadow-[0_16px_40px_-16px_rgba(48,40,32,0.6)]",
+  outline: "border border-ink-line text-ink hover:border-brass hover:text-gold-deep",
+  ghost: "text-ink/70 hover:text-gold-deep",
+  // Accent action: brass detail, accessible mocha label.
+  gold: "border border-brass/60 text-ink hover:bg-brass/15 hover:border-brass",
+  dark: "bg-ink text-ivory border border-ink hover:bg-mocha-soft",
 };
 
 const sizes: Record<Size, string> = {

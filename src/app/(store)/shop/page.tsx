@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { getProducts, filterProducts } from "@/lib/products";
+import { PriceRangeSlider } from "@/components/ui/price-range-slider";
 import { CATEGORIES, COLLECTIONS, FINISHES, CATEGORY_LABELS } from "@/lib/types";
 import { ProductCard } from "@/components/product/product-card";
 import { ShopControls } from "@/components/store/shop-controls";
@@ -58,8 +59,8 @@ function Chip({
       className={cn(
         "rounded-full border px-3.5 py-1.5 text-[0.72rem] tracking-wide transition-colors",
         active
-          ? "border-gold bg-gold/15 text-gold"
-          : "border-ink-line text-ivory-dim hover:border-gold/60 hover:text-gold",
+          ? "border-brass bg-brass/15 text-mocha"
+          : "border-ink-line text-taupe hover:border-brass/60 hover:text-gold-deep",
       )}
     >
       {children}
@@ -104,8 +105,8 @@ export default async function ShopPage({
     <div className="mx-auto max-w-7xl px-6 py-14">
       <header className="max-w-3xl">
         <p className="eyebrow">The Collection</p>
-        <h1 className="mt-4 font-display text-5xl sm:text-6xl">{categoryLabel}</h1>
-        <p className="mt-4 text-ivory-dim">
+        <h1 className="mt-4 font-display text-5xl text-ink sm:text-6xl">{categoryLabel}</h1>
+        <p className="mt-4 text-taupe">
           {products.length} piece{products.length === 1 ? "" : "s"} — every fixture
           is stocked in-house and shipped white-glove nationwide.
         </p>
@@ -115,6 +116,9 @@ export default async function ShopPage({
         {/* --------------------------------------------------- Filters */}
         <aside className="hidden lg:block">
           <p className="eyebrow">Refine</p>
+          <div className="mb-6">
+            <PriceRangeSlider min={0} max={500000} />
+          </div>
 
           <FilterGroup title="Category">
             <Chip href={buildQuery(sp, { category: undefined })} active={!category}>
@@ -199,11 +203,11 @@ export default async function ShopPage({
           <ShopControls />
 
           {(q || collection || finish || category || budget || smart) && (
-            <p className="mt-4 text-sm text-ivory-dim">
+            <p className="mt-4 text-sm text-taupe">
               Filters active —{" "}
               <Link
                 href="/shop"
-                className="gold-underline text-gold"
+                className="gold-underline text-ink"
               >
                 clear all
               </Link>
@@ -212,13 +216,13 @@ export default async function ShopPage({
 
           {products.length === 0 ? (
             <div className="mt-16 rounded-2xl border border-ink-line py-20 text-center">
-              <p className="font-display text-3xl">Nothing matches — yet.</p>
-              <p className="mt-3 text-sm text-ivory-dim">
-                Loosen a filter, or ask the atelier to make it for you.
+              <p className="font-display text-3xl text-ink">Nothing matches — yet.</p>
+              <p className="mt-3 text-sm text-taupe">
+                Loosen a filter, or ask the studio to make it for you.
               </p>
               <Link
                 href="/contact"
-                className="mt-6 inline-flex h-11 items-center rounded-full border border-gold/60 px-7 text-[0.72rem] uppercase tracking-[0.2em] text-gold hover:bg-gold hover:text-ink"
+                className="mt-6 inline-flex h-11 items-center rounded-full border border-brass/60 px-7 text-[0.72rem] uppercase tracking-[0.2em] text-ink transition-colors hover:bg-brass/15 hover:border-brass"
               >
                 Enquire
               </Link>
